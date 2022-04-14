@@ -1,20 +1,42 @@
-const http = require('http')
+const express = require("express");
+const cors = require("cors");
+const coinList = require("./moedas.json");
 
-const listaDeMoedas = require ('./moedas.json');
+const app = express(); //http.createServer
 
-const app = http.createServer((req, res)=>{
-    console.log(listaDeMoedas);
-res.setHeader("Access-Control-Allow-Origin", "*")
-    res.setHeader("Content-Type", "application/json");
-    const respostaEmJson = JSON.stringify(listaDeMoedas);
-    res.write(respostaEmJson);
+app.use(cors()); // liberando cors
+
+app.get("/", (req, res) => {
+  res.send("Olá tudo bom?");
+});
+
+app.get("/moedas", (req, res) => {
+  res.send(JSON.stringify(coinList));
+});
+
+app.listen(4000, () => console.log("Servidor Rodando na porta 4000"));
+
+
+
+// _____________________________________________________________________________________________________________________________
+// const http = require('http')
+
+// const listaDeMoedas = require ('./moedas.json');
+
+// const app = http.createServer((req, res)=>{
+//     console.log(listaDeMoedas);
+// res.setHeader("Access-Control-Allow-Origin", "*")
+//     res.setHeader("Content-Type", "application/json");
+//     const respostaEmJson = JSON.stringify(listaDeMoedas);
+//     res.write(respostaEmJson);
   
 
-    res.end();
-})
+//     res.end();
+// })
 
-app.listen(3000, () => console.log ('Servidor iniciado na porta 3000'));
+// app.listen(3000, () => console.log ('Servidor iniciado na porta 3000'));
 
+// _____________________________________________________________________________________________________________________________
 // const fs = require("fs");
 // const url = require("url");
 // const http = require("http");
